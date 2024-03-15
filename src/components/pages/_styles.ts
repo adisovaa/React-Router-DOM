@@ -1,11 +1,10 @@
-import React from 'react';
 import styled from "styled-components";
 
 const NavWrapper = styled.div`
   margin-left: 10px;
   font-size: 20px;
 
-  & > a {
+  NavWrapper > a {
     text-decoration: none;
     color: #1e3786;
   }
@@ -15,10 +14,12 @@ const NavWrapper = styled.div`
     color: #03eaff;
   }
 
-  & > a.hover {
-    color: steelblue;
-  }`
+  & > a:hover {
+    color: steelblue; /* Цвет ссылки */
+  }
+`
 
-export const S = {
+
+export const S={
     NavWrapper,
-}
+  }
