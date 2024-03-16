@@ -1,30 +1,72 @@
 import React from 'react';
-import {NavLink, Outlet, Route, Routes} from "react-router-dom";
+import './App.css'
+import {NavLink, Outlet, Route, Routes, useNavigate, useParams} from "react-router-dom";
 
-export const App2 = () => {
+
+const Profile3 = () => {
+    const navigate = useNavigate()
 
     return (
-        <div className='App'>
-            <NavLink to={'/'}>main </NavLink>
-            <NavLink to={'/login'}>login </NavLink>
-            <NavLink to={'/profile'}>profile </NavLink>
-            <NavLink to={'/settings'}>settings </NavLink>
+        <div>
+            profile
+            <button onClick={() => {
+                navigate('./login')
+            }}>Logout</button>
+        </div>
+    )
+}
+
+
+export const App3 = () => {
+    return (
+        <div className={'App'}>
+            <NavLink to={'/'}>main </NavLink> ----
+            <NavLink to={'/login'}>login </NavLink> ----
+            <NavLink to={'/profile'}>profile </NavLink> ----
+            <NavLink to={'/profile/settings'}>settings </NavLink> ----
 
             <Routes>
                 <Route path={'/*'} element={<div>404</div>}/>
                 <Route path={'/'} element={<div>main</div>}/>
                 <Route path={'/login'} element={<div>login</div>}/>
-                <Route path={'/profile'} element={(
-                    <div>
-                        profile
-                        <Outlet/>
-                    </div>
-                )}>
-                    <Route element={<div>settings</div>}/>
-                </Route>
-                {/*<Route path={'*'} element={<div>page not found</div>}/>*/}
-                <Route path={'*'} element={<div>page not found</div>}/>
-                <Route path={':id'} element={<div>page not found</div>}/>
+                <Route path={'/profile'} element={<div><Profile3/></div>}/>
+                <Route path={'/profile/settings'} element={<div>settings</div>}/>
+            </Routes>
+        </div>
+    )
+}
+
+
+const Profile2 = () => {
+    const params = useParams<'id'>()
+    const some = params.id
+    console.log(some)
+
+    return <div>profile</div>
+}
+export const App2 = () => {
+    return (
+        <div className='App'>
+            <NavLink to={'/'}>main </NavLink> ----
+            <NavLink to={'/login'} style={(params) => {
+                return {color: params.isActive ? 'lime' : 'black'}
+            }}>
+                login </NavLink> ----
+            <NavLink to={'/profile'}>profile </NavLink> ----
+            <NavLink to={'/profile/settings'}
+                     className={({isActive}) => isActive ? 'act' : 'def'}
+            >settings </NavLink> ----
+
+            <a href={'https://github.com/adisovaa'}
+               target={'_blank'}
+               rel={'noreferrer nofollow nooper'}
+            >link</a>
+
+            <Routes>
+                <Route path={'/*'} element={<div>404</div>}/>
+                <Route path={'/'} element={<div>main</div>}/>
+                <Route path={'/login'} element={<div>login</div>}/>
+                <Route path={'/profile/:id'} element={<Profile2/>}/>
             </Routes>
         </div>
     )
