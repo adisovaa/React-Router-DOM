@@ -1,6 +1,42 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css'
-import {NavLink, Outlet, Route, Routes, useNavigate, useParams} from "react-router-dom";
+import {NavLink, Outlet, Route, Routes, useNavigate, useParams, useSearchParams} from "react-router-dom";
+
+
+const Profile4 = () => {
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    console.log(searchParams.get('name'))
+    console.log(Object.fromEntries(searchParams))
+
+    useEffect(() => {
+        console.log('search...')
+    }, [searchParams])
+
+
+    return <div>
+        profile
+        <button onClick={() => {
+            setSearchParams({...Object.fromEntries(searchParams), age: '23'})
+        }}>add age</button>
+    </div>
+}
+export const App4 = () => {
+    return (
+        <div>
+            <NavLink to={'/'}>main</NavLink> ----
+            <NavLink to={'/login'}>login</NavLink> ----
+            <NavLink to={'/profile'}>profile</NavLink> ----
+
+            <Routes>
+                <Route path={'/*'} element={<div>404</div>}/>
+                <Route path={'/'} element={<div>main</div>}/>
+                <Route path={'/login'} element={<div>login</div>}/>
+                <Route path={'/profile'} element={<div><Profile4/></div>}/>
+            </Routes>
+        </div>
+    )
+}
 
 
 const Profile3 = () => {
@@ -15,8 +51,6 @@ const Profile3 = () => {
         </div>
     )
 }
-
-
 export const App3 = () => {
     return (
         <div className={'App'}>
